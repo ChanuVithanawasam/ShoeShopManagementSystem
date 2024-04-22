@@ -1,4 +1,4 @@
-package src.main.com.helloShoes;
+package com.HelloShoes;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
