@@ -1,0 +1,84 @@
+section {
+    padding: 60px 0;
+    overflow: hidden;
+}
+
+.section-bg {
+    background-color: #f3f5fa;
+}
+#about{
+    width: 100%;
+    height: 100vh;
+}
+
+.section-title {
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.section-title h2 {
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-family: 'IM FELL DW Pica SC',serif;
+    padding-bottom: 3px;
+    position: relative;
+    color: #000102;
+}
+
+.section-title h2::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: #e2dddd;
+    bottom: 1px;
+    left: calc(50% - 60px);
+}
+
+.section-title h2::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: #01070a;
+    bottom: 0;
+    left: calc(50% - 20px);
+}
+
+.section-title p {
+    margin-bottom: 0;
+}
+
+
+
+#AboutParagraph{
+    position: absolute;
+    margin-bottom: 0;
+    font-family: 'IM FELL DW Pica SC',serif;
+    font-size: 27px;
+    line-height: 38px;
+    /*left: 52vw;
+    top: 126vh;*/
+}
+
+#whiteCar{
+    /* position: absolute;
+    left: 0vw;
+    margin-bottom: 0;
+    top: 510px;*/
+    position: absolute;
+    width: 55%;
+    height: 55vh;
+    z-index: 5;
+    left: 42vw;
+    background: url("../../images/whitecar.png");
+    background-position: center;
+    background-size: cover;
+
+}
+
+
