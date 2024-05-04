@@ -1,218 +1,302 @@
-function loadCustomerIDs(){
-    $("#cmbCustomerID").empty();
-    customerDB.length=0;
+/**
+ * @author : Nimesh Piyumantha
+ * @since : 0.1.0
+ **/
+
+let baseUrl = "http://localhost:8080/springBoot/";
+loadAllCustomer();
+/**
+ * Customer Save
+ * */
+
+$("#btnSaveCustomer").attr('disabled', true);
+$("#btnUpdateCustomer").attr('disabled', true);
+$("#btnDeleteCustomer").attr('disabled', true);
+
+/**
+ * Customer Save
+ * Customer ID
+ * */
+function generateCustomerID() {
+    $("#txtCusId").val("C00-001");
     $.ajax({
-        url: "http://localhost:8080/app/api/v1/customers",
+        url: baseUrl + "customer/CustomerIdGenerate",
         method: "GET",
+        contentType: "application/json",
         dataType: "json",
         success: function (resp) {
-            for (const customer of resp) {
-                $("#cmbCustomerID").append("<option >" + customer.id + "</option>");
-                const customerDetails = {
-                    id: customer.id,
-                    name: customer.name,
-                    address: customer.address,
-                    salary: customer.salary
-                }
-                customerDB.push(customerDetails);
+            let id = resp.value;
+            console.log("id" +id);
+            let tempId = parseInt(id.split("-")[1]);
+            tempId = tempId + 1;
+            if (tempId <= 9) {
+                $("#txtCusId").val("C00-00" + tempId);
+            } else if (tempId <= 99) {
+                $("#txtCusId").val("C00-0" + tempId);
+            } else {
+                $("#txtCusId").val("C00-" + tempId);
             }
+        },
+        error: function (ob, statusText, error) {
+
         }
     });
 }
 
-$("#navCustomer").click(function (){
-    loadCustomerIDs();
-    $("#navCustomer").css( "font-weight","bold")
-    $("#navPlaceOrder").css( "font-weight","normal")
-    $("#navHome").css( "font-weight","normal")
-    $("#navItem").css( "font-weight","normal")
-    $("#btnOrderDetails").css('display','none');
-});
+/**
+ * Button Add New Customer
+ * */
 
-$("#imgCustomer").click(function () {
-    loadCustomerIDs();
-});
-
-$("#btnSaveCustomer").click(function (){
-    if (checkCustomerAll()) {
-        saveCustomer();
-        clearCustomerInputField();
-    }
-    else {
-        alert("Faild Saved");
-    }
-});
-
-$("#btnCustomerGetAll").click(function (){
-    getAllCustomers();
-});
-
-$("#btnCustomerDelete").click(function (){
-    deleteCustomer();
-    clearCustomerInputField();
-});
-
-$("#btnCustomerUpdate").click(function (){
-    updateCustomer();
-    clearCustomerInputField();
-});
-
-$("#btnCustomerSearch").click(function (){
-    let id=$("#cmbCustomerID").val();
-    for (let i = 0; i < customerDB.length; i++) {
-        if (customerDB[i].id==id){
-            $("#cusId").val(customerDB[i].id)
-            $("#cusName").val(customerDB[i].name)
-            $("#cusAddress").val(customerDB[i].address)
-            $("#cusSalary").val(customerDB[i].salary)
+$("#btnSaveCustomer").click(function () {
+    let formData = $("#customerForm").serialize();
+    console.log(formData);
+    $.ajax({
+        url: baseUrl + "customer", method: "post", data: formData, dataType: "json", success: function (res) {
+            saveUpdateAlert("Customer", res.message);
+            loadAllCustomer();
+        }, error: function (error) {
+            unSuccessUpdateAlert("Customer", JSON.parse(error.responseText).message);
         }
-    }
-    setBtn();
+    });
 });
 
-function saveCustomer() {
-    let customerId = $("#cusId").val();
 
-    if (searchCustomer(customerId.trim()) == undefined){
-        let customerName = $("#cusName").val();
-        let customerAddress = $("#cusAddress").val();
-        let customerSalary = $("#cusSalary").val();
+/**
+ * clear input fields Values Method
+ * */
+function setTextFieldValues(id, name, address, salary) {
+    $("#txtCusId").val(id);
+    $("#txtCusName").val(name);
+    $("#txtCusAddress").val(address);
+    $("#txtCustomerSalary").val(salary);
+    $("#txtCusName").focus();
+    checkValidity(customerValidations);
+    $("#btnSaveCustomer").attr('disabled', true);
+    $("#btnUpdateCustomer").attr('disabled', true);
+    $("#btnDeleteCustomer").attr('disabled', true);
+}
 
-        let newCustomer = {
-            id : customerId,
-            name : customerName,
-            address : customerAddress,
-            salary : customerSalary
-        };
+/**
+ * load all customers Method
+ * */
+function loadAllCustomer() {
+    $("#customerTable").empty();
+    $.ajax({
+        url: baseUrl + "customer/loadAllCustomer",
+        method: "GET", dataType: "json", success: function (res) {
+            console.log(res);
 
-        const jsonObject=JSON.stringify(newCustomer);
+            for (let i of res.data) {
+                let id = i.id;
+                let name = i.name;
+                let address = i.address;
+                let salary = i.salary;
+
+                let row = "<tr><td>" + id + "</td><td>" + name + "</td><td>" + address + "</td><td>" + salary + "</td></tr>";
+                $("#customerTable").append(row);
+            }
+            blindClickEvents();
+            generateCustomerID();
+            setTextFieldValues("", "", "", "");
+            console.log(res.message);
+        }, error: function (error) {
+            let message = JSON.parse(error.responseText).message;
+            console.log(message);
+        }
+
+    });
+}
+
+/**
+ * Table Listener Click and Load textFields
+ * */
+function blindClickEvents() {
+    $("#customerTable>tr").on("click", function () {
+        let id = $(this).children().eq(0).text();
+        let name = $(this).children().eq(1).text();
+        let address = $(this).children().eq(2).text();
+        let salary = $(this).children().eq(3).text();
+        console.log(id, name, address, salary);
+
+        $("#txtCusId").val(id);
+        $("#txtCusName").val(name);
+        $("#txtCusAddress").val(address);
+        $("#txtCustomerSalary").val(salary);
+    });
+    $("#btnSaveCustomer").attr('disabled', true);
+}
+
+
+/**
+ * Search id and Load Table
+ * */
+$("#searchCusId").on("keypress", function (event) {
+    if (event.which === 13) {
+        var search = $("#searchCusId").val();
+        $("#customerTable").empty();
         $.ajax({
-            url:"http://localhost:8080/app/api/v1/customers",
-            method:"POST",
-            data:jsonObject,
-            contentType:("application/json"),
-
-            success: function (resp, textStatus, jqxhr){
-                console.log("Success",resp);
-                if (jqxhr.status == 201) {
-                    // alert(jqxhr.responseText);
-                    alert("Added customer successfully");
-                }
-                loadCustomerIDs();
+            url: baseUrl + "customer/searchCusId/?id="+ search,
+            method: "GET",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                let row = "<tr><td>" + res.id + "</td><td>" + res.name + "</td><td>" + res.address + "</td><td>" + res.salary + "</td></tr>";
+                $("#customerTable").append(row);
+                blindClickEvents();
             },
-            error: function (error){
-                console.log("Error",error);
+            error: function (error) {
+                loadAllCustomer();
+                let message = JSON.parse(error.responseText).message;
+                emptyMassage(message);
             }
-        });
-
+        })
     }
-    else {
-        alert("Customer already exits.!");
-        clearCustomerInputField();
-    }
-}
 
-function searchCustomer(id){
-    return customerDB.find(function (customer){
-        return customer.id==id;
+});
+
+/**
+ * Customer Update
+ * */
+
+/**
+ * Update Action
+ * */
+$("#btnUpdateCustomer").click(function () {
+
+    let cusId = $("#txtCusId").val();
+    let cusName = $("#txtCusName").val();
+    let cusAddress = $("#txtCusAddress").val();
+    let cusSalary = $("#txtCustomerSalary").val();
+
+    const customerOb = {
+        id: cusId, name: cusName, address: cusAddress, salary: cusSalary
+    };
+
+    $.ajax({
+        url: baseUrl + "customer",
+        method: "put",
+        contentType: "application/json",
+        data: JSON.stringify(customerOb),
+        success: function (res) {
+            saveUpdateAlert("Customer", res.message);
+            loadAllCustomer();
+        },
+        error: function (error) {
+            let message = JSON.parse(error.responseText).message;
+            unSuccessUpdateAlert("Customer", message);
+        }
     });
-}
-function getAllCustomers(){
-    $("#tblCustomer").empty();
-    for (let i = 0; i < customerDB.length; i++) {
-        let customerId=customerDB[i].id;
-        let customerName=customerDB[i].name;
-        let customerAddress=customerDB[i].address;
-        let customerSalary=customerDB[i].salary;
+});
 
-        let row=`<tr>
-                    <td>${customerId}</td>
-                    <td>${customerName}</td>
-                    <td>${customerAddress}</td>
-                    <td>${customerSalary}</td>
-                </tr>`;
-        $("#tblCustomer").append(row);
-        bindCusTrEvents();
-    }
-}
-function bindCusTrEvents() {
-    $("#tblCustomer>tr").click(function (){
-        let id=$(this).children().eq(0).text();
-        let name=$(this).children().eq(1).text();
-        let address=$(this).children().eq(2).text();
-        let salary=$(this).children().eq(3).text();
+/**
+ * Customer Delete
+ * */
 
-        $("#cusId").val(id)
-        $("#cusName").val(name)
-        $("#cusAddress").val(address)
-        $("#cusSalary").val(salary)
+/**
+ * Delete Action
+ * */
+$("#btnDeleteCustomer").click(function () {
+
+    let cusId = $("#txtCusId").val();
+    let cusName = $("#txtCusName").val();
+    let cusAddress = $("#txtCusAddress").val();
+    let cusSalary = $("#txtCustomerSalary").val();
+
+    const customerOb = {
+        id: cusId, name: cusName, address: cusAddress, salary: cusSalary
+    };
+
+    $.ajax({
+        url: baseUrl + "customer",
+        method: "delete",
+        contentType: "application/json",
+        data: JSON.stringify(customerOb),
+        success: function (res) {
+            saveUpdateAlert("Customer", res.message);
+            loadAllCustomer();
+        },
+        error: function (error) {
+            let message = JSON.parse(error.responseText).message;
+            unSuccessUpdateAlert("Customer", message);
+        }
     });
-}
+});
 
-function deleteCustomer(){
-    let id=$("#cusId").val();
-    if (searchCustomer(id) == undefined) {
-        alert("No such Customer..please check the ID");
+/**
+ * Auto Forces Input Fields Save
+ * */
+$("#txtCusId").focus();
+const regExCusID = /^(C00-)[0-9]{3,4}$/;
+const regExCusName = /^[A-z ]{3,20}$/;
+const regExCusAddress = /^[A-z0-9/ ]{4,30}$/;
+const regExSalary = /^[0-9]{1,}[.]?[0-9]{1,2}$/;
+
+let customerValidations = [];
+customerValidations.push({
+    reg: regExCusID, field: $('#txtCusId'), error: 'Customer ID Pattern is Wrong : C00-001'
+});
+customerValidations.push({
+    reg: regExCusName, field: $('#txtCusName'), error: 'Customer Name Pattern is Wrong : A-z 3-20'
+});
+customerValidations.push({
+    reg: regExCusAddress, field: $('#txtCusAddress'), error: 'Customer Address Pattern is Wrong : A-z 0-9 ,/'
+});
+customerValidations.push({
+    reg: regExSalary, field: $('#txtCustomerSalary'), error: 'Customer Salary Pattern is Wrong : 0-9{1,}.0-9{1,2}'
+});
+
+//disable tab key of all four text fields using grouping selector in CSS
+$("#txtCusId,#txtCusName,#txtCusAddress,#txtCustomerSalary").on('keydown', function (event) {
+    if (event.key === "Tab") {
+        event.preventDefault();
+    }
+});
+
+$("#txtCusId,#txtCusName,#txtCusAddress,#txtCustomerSalary").on('keyup', function (event) {
+    checkValidity(customerValidations);
+});
+
+$("#txtCusId,#txtCusName,#txtCusAddress,#txtCustomerSalary").on('blur', function (event) {
+    checkValidity(customerValidations);
+});
+
+$("#txtCusId").on('keydown', function (event) {
+    if (event.key === "Enter" && check(regExCusID, $("#txtCusId"))) {
+        $("#txtCusName").focus();
     } else {
-        let consent = confirm("Do you really want to Delete this customer.?");
-        if (consent) {
-            $.ajax({
-                url: "http://localhost:8080/app/api/v1/customers?id=" + id,
-                method: "DELETE",
-                success: function (resp, textStatus, jqxhr) {
-                    if (jqxhr.status == 201) {
-                        // alert(jqxhr.responseText);
-                        alert("Delete customer successfully");
-                    }
-                    loadCustomerIDs();
-                },
-                error: function (error) {
+        focusText($("#txtCusId"));
+    }
+});
 
-                }
-            });
+$("#txtCusName").on('keydown', function (event) {
+    if (event.key === "Enter" && check(regExCusName, $("#txtCusName"))) {
+        focusText($("#txtCusAddress"));
+    }
+});
+
+$("#txtCusAddress").on('keydown', function (event) {
+    if (event.key === "Enter" && check(regExCusAddress, $("#txtCusAddress"))) {
+        focusText($("#txtCustomerSalary"));
+    }
+});
+
+$("#txtCustomerSalary").on('keydown', function (event) {
+    if (event.key === "Enter" && check(regExSalary, $("#txtCustomerSalary"))) {
+        if (event.which === 13) {
+            $('#btnSaveCustomer').focus();
         }
     }
-}
+});
 
-function updateCustomer(){
-    let id=$("#cusId").val();
-
-    if (searchCustomer(id) == undefined) {
-        clearCustomerInputField();
-        alert("No such Customer..please check the ID");
+function setButtonState(value) {
+    if (value > 0) {
+        $("#btnSaveCustomer").attr('disabled', true);
+        $("#btnUpdateCustomer").attr('disabled', true);
+        $("#btnDeleteCustomer").attr('disabled', true);
     } else {
-        let consent = confirm("Do you really want to update this customer.?");
-        if (consent) {
-            let name = $("#cusName").val();
-            let address = $("#cusAddress").val();
-            let salary = $("#cusSalary").val();
-
-            let newCustomer = {
-                id: id,
-                name: name,
-                address: address,
-                salary: salary
-            };
-
-            const jsonObject = JSON.stringify(newCustomer);
-            $.ajax({
-                url: "http://localhost:8080/app/api/v1/customers",
-                method: "PUT",
-                data: jsonObject,
-                contentType: ("application/json"),
-
-                success: function (resp, textStatus, jqxhr) {
-                    if (jqxhr.status == 201) {
-                        // alert(jqxhr.responseText);
-                        alert("Update customer successfully");
-                    }
-                    loadCustomerIDs();
-                },
-                error: function (error) {
-                    console.log("Error", error);
-                }
-            });
-        }
+        $("#btnSaveCustomer").attr('disabled', false);
+        $("#btnUpdateCustomer").attr('disabled', false);
+        $("#btnDeleteCustomer").attr('disabled', false);
     }
-};
-
+}

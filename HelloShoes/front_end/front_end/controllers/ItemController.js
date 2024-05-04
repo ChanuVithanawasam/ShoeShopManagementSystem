@@ -1,207 +1,318 @@
-function loadItemCodes(){
-    $("#cmbItemCode").empty();
-    itemDB.length=0;
+/**
+ * @author : Nimesh Piyumantha
+ * @since : 0.1.0
+ **/
+
+let baseUrl = "http://localhost:8080/springBoot/";
+loadAllItems();
+/**
+ * Item Save
+ * */
+
+$("#btnAddItem").attr('disabled', true);
+$("#btnUpdateItem").attr('disabled', true);
+$("#btnDeleteItem").attr('disabled', true);
+/**
+ * Item Save
+ * Item ID
+ * */
+function generateItemID() {
+    $("#txtItemID").val("I00-001");
     $.ajax({
-        url: "http://localhost:8080/app/api/v1/items",
+        url: baseUrl + "item/ItemIdGenerate",
         method: "GET",
+        contentType: "application/json",
         dataType: "json",
         success: function (resp) {
-            for (const item of resp) {
-                $("#cmbItemCode").append("<option >" + item.code + "</option>");
-
-                const itemDetails = {
-                    code: item.code,
-                    description: item.description,
-                    qtyOnHand: item.qtyOnHand,
-                    unitPrice: item.unitPrice
-                };
-                itemDB.push(itemDetails);
+            let code = resp.value;
+            let tempId = parseInt(code.split("-")[1]);
+            tempId = tempId + 1;
+            if (tempId <= 9) {
+                $("#txtItemID").val("I00-00" + tempId);
+            } else if (tempId <= 99) {
+                $("#txtItemID").val("I00-0" + tempId);
+            } else {
+                $("#txtItemID").val("I00-" + tempId);
             }
+        },
+        error: function (ob, statusText, error) {
+
         }
     });
 }
 
-$("#navItem").click(function (){
-    loadItemCodes();
-    $("#navCustomer").css( "font-weight","normal")
-    $("#navPlaceOrder").css( "font-weight","normal")
-    $("#navHome").css( "font-weight","normal")
-    $("#navItem").css( "font-weight","bold")
-    $("#btnOrderDetails").css('display','none');
-});
-
-$("#imgItem").click(function (){
-    loadItemCodes();
-});
-
-$("#btnItemSave").click(function (){
-    if (checkAll()) {
-        saveItem();
-        clearItemInputField();
-    }
-    else {
-        alert("Faild Saved");
-    }
-});
-
-$("#btnItemGetAll").click(function (){
-  getAllItems();
-});
-
-$("#btnItemDelete").click(function (){
-    deleteItem();
-    clearItemInputField();
-});
-
-$("#btnItemUpdate").click(function (){
-    updateItem();
-    clearItemInputField();
-});
-
-$("#btnItemSearch").click(function (){
-    let code=$("#cmbItemCode").val();
-    for (let i = 0; i < itemDB.length; i++) {
-        if (itemDB[i].code==code){
-            $("#txtItemCode").val(itemDB[i].code)
-            $("#txtItemName").val(itemDB[i].description)
-            $("#txtItemPrice").val(itemDB[i].unitPrice)
-            $("#txtItemQty").val(itemDB[i].qtyOnHand)
+/**
+ * Button Add New Item
+ * */
+$("#btnAddItem").click(function () {
+    let formData = $("#itemForm").serialize();
+    $.ajax({
+        url: baseUrl + "item",
+        method: "post",
+        data: formData,
+        dataType: "json",
+        success: function (res) {
+            saveUpdateAlert("item", res.message);
+            loadAllItems();
+        },
+        error: function (error) {
+            unSuccessUpdateAlert("item", JSON.parse(error.responseText).message);
         }
-    }
+    });
 });
 
-function saveItem() {
-    let code = $("#txtItemCode").val();
+/**
+ * clear input fields Values Method
+ * */
+function setTextFieldValues(code, description, qty, price) {
+    $("#txtItemID").val(code);
+    $("#txtItemName").val(description);
+    $("#txtItemQty").val(qty);
+    $("#txtItemPrice").val(price);
+    $("#txtItemName").focus();
+    checkValidity(ItemsValidations);
+    $("#btnAddItem").attr('disabled', true);
+    $("#btnUpdateItem").attr('disabled', true);
+    $("#btnDeleteItem").attr('disabled', true);
 
-    if (searchItem(code.trim()) == undefined){
-        let name = $("#txtItemName").val();
-        let price = $("#txtItemPrice").val();
-        let qty = $("#txtItemQty").val();
+}
 
-        let newItem = {
-            code : code,
-            description : name,
-            unitPrice : price,
-            qtyOnHand : qty
-        };
+/**
+ * load all Item Method
+ * */
+function loadAllItems() {
+    $("#ItemTable").empty();
+    $.ajax({
+        url: baseUrl + "item/loadAllItem",
+        method: "GET",
+        dataType: "json",
+        success: function (res) {
+            console.log(res);
+            for (let i of res.data) {
+                let code = i.code;
+                let description = i.description;
+                let qty = i.qty;
+                let unitPrice = i.unitPrice;
 
-        const jsonObject=JSON.stringify(newItem);
+                let row = "<tr><td>" + code + "</td><td>" + description + "</td><td>" + qty + "</td><td>" + unitPrice + "</td></tr>";
+                $("#ItemTable").append(row);
+            }
+            blindClickEvents();
+            generateItemID();
+            setTextFieldValues("", "", "", "");
+            console.log(res.message);
+        },
+        error: function (error) {
+            let message = JSON.parse(error.responseText).message;
+            console.log(message);
+        }
+    });
+}
+
+/**
+ * Table Listener Click and Load textFields
+ * */
+function blindClickEvents() {
+    $("#ItemTable>tr").on("click", function () {
+        let code = $(this).children().eq(0).text();
+        let description = $(this).children().eq(1).text();
+        let qty = $(this).children().eq(2).text();
+        let unitPrice = $(this).children().eq(3).text();
+        console.log(code, description, qty, unitPrice);
+
+        $("#txtItemID").val(code);
+        $("#txtItemName").val(description);
+        $("#txtItemQty").val(qty);
+        $("#txtItemPrice").val(unitPrice);
+    });
+    $("#btnAddItem").attr('disabled', true);
+}
+
+
+/**
+ * Search id and Load Table
+ * */
+$("#ItemIdSearch").on("keypress", function (event) {
+    if (event.which === 13) {
+        var search = $("#ItemIdSearch").val();
+        $("#ItemTable").empty();
         $.ajax({
-            url:"http://localhost:8080/app/api/v1/items",
-            method:"POST",
-            data:jsonObject,
-
-            success:function (resp,jqxhr){
-                if (jqxhr.status==201){
-                    // alert(jqxhr.responseText);
-                    alert("Added Item successfully");
-                }
-                loadItemCodes();
+            url: baseUrl + "item/searchItemCode/?code="+ search,
+            method: "GET",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                let row = "<tr><td>" + res.code + "</td><td>" + res.description + "</td><td>" + res.qty + "</td><td>" + res.unitPrice + "</td></tr>";
+                $("#ItemTable").append(row);
+                blindClickEvents();
+            },
+            error: function (error) {
+                loadAllItems();
+                let message = JSON.parse(error.responseText).message;
+                emptyMassage(message);
             }
-        });
-
+        })
     }
-    else {
-        alert("Item already exits.!");
-        clearItemInputField();
+});
+
+/**
+ * Item Update
+ * */
+
+/**
+ * Update Action
+ * */
+$("#btnUpdateItem").click(function () {
+
+    let code = $("#txtItemID").val();
+    let description = $("#txtItemName").val();
+    let qty = $("#txtItemQty").val();
+    let unitPrice = $("#txtItemPrice").val();
+
+    var itemOb = {
+        code: code,
+        description: description,
+        qty: qty,
+        unitPrice: unitPrice
     }
-}
 
-function searchItem(code){
-    return itemDB.find(function(item){
-        return item.code==code;
+    $.ajax({
+        url: baseUrl + "item",
+        method: "put",
+        contentType: "application/json",
+        data: JSON.stringify(itemOb),
+        success: function (res) {
+            saveUpdateAlert("Item", res.message);
+            loadAllItems();
+        },
+        error: function (error) {
+            let message = JSON.parse(error.responseText).message;
+            unSuccessUpdateAlert("Item", message);
+        }
     });
-}
+});
 
-function getAllItems(){
-    $("#tblItem").empty();
 
-    for (let i = 0; i < itemDB.length; i++) {
-        let code=itemDB[i].code;
-        let name=itemDB[i].description;
-        let price=itemDB[i].unitPrice;
-        let qty=itemDB[i].qtyOnHand;
+/**
+ * Item Delete
+ * */
 
-        let row=`<tr>
-                    <td>${code}</td>
-                    <td>${name}</td>
-                    <td>${price}</td>
-                    <td>${qty}</td>
-                </tr>`;
-        $("#tblItem").append(row);
-        bindTrEvents();
-    };
-}
+/**
+ * Delete Action
+ * */
+$("#btnDeleteItem").click(function () {
 
-function bindTrEvents() {
-    $("#tblItem>tr").click(function (){
-        let code=$(this).children().eq(0).text();
-        let name=$(this).children().eq(1).text();
-        let price=$(this).children().eq(2).text();
-        let qty=$(this).children().eq(3).text();
+    let itCode = $("#txtItemID").val();
+    let itDescription = $("#txtItemName").val();
+    let itQty = $("#txtItemQty").val();
+    let itUnitPrice = $("#txtItemPrice").val();
 
-        $("#txtItemCode").val(code)
-        $("#txtItemName").val(name)
-        $("#txtItemPrice").val(price)
-        $("#txtItemQty").val(qty)
+    const itemOb = {
+        code: itCode,
+        description: itDescription,
+        qty: itQty,
+        unitPrice: itUnitPrice
+    }
+    $.ajax({
+        url: baseUrl + "item",
+        method: "delete",
+        contentType: "application/json",
+        data: JSON.stringify(itemOb),
+        success: function (res) {
+            saveUpdateAlert("Item", res.message);
+            loadAllItems();
+        },
+        error: function (error) {
+            let message = JSON.parse(error.responseText).message;
+            unSuccessUpdateAlert("Item", message);
+        }
     });
-}
+});
 
-function deleteItem(){
-    let id=$("#txtItemCode").val();
-    if (searchItem(id) == undefined) {
-        alert("No such Customer..please check the ID");
+
+/**
+ * Auto Forces Input Fields Save
+ * */
+$("#txtItemID").focus();
+const regExItemCode = /^(I00-)[0-9]{3,4}$/;
+const regExItemName = /^[A-z ]{3,20}$/;
+const regExItemPrice = /^[0-9]{1,10}$/;
+const regExItemQtyOnHand = /^[0-9]{1,}[.]?[0-9]{1,2}$/;
+
+let ItemsValidations = [];
+ItemsValidations.push({
+    reg: regExItemCode,
+    field: $('#txtItemID'),
+    error: 'Item ID Pattern is Wrong : I00-001'
+});
+ItemsValidations.push({
+    reg: regExItemName,
+    field: $('#txtItemName'),
+    error: 'Item Name Pattern is Wrong : A-z 3-20'
+});
+ItemsValidations.push({
+    reg: regExItemPrice,
+    field: $('#txtItemQty'),
+    error: 'Item Qty Pattern is Wrong : 0-9 1-10'
+});
+ItemsValidations.push({
+    reg: regExItemQtyOnHand,
+    field: $('#txtItemPrice'),
+    error: 'Item Salary Pattern is Wrong : 100 or 100.00'
+});
+
+//disable tab key of all four text fields using grouping selector in CSS
+$("#txtItemID,#txtItemName,#txtItemQty,#txtItemPrice").on('keydown', function (event) {
+    if (event.key === "Tab") {
+        event.preventDefault();
+    }
+});
+
+$("#txtItemID,#txtItemName,#txtItemQty,#txtItemPrice").on('keyup', function (event) {
+    checkValidity(ItemsValidations);
+});
+
+$("#txtItemID,#txtItemName,#txtItemQty,#txtItemPrice").on('blur', function (event) {
+    checkValidity(ItemsValidations);
+});
+
+$("#txtItemID").on('keydown', function (event) {
+    if (event.key === "Enter" && check(regExItemCode, $("#txtItemID"))) {
+        $("#txtItemName").focus();
     } else {
-        let consent = confirm("Do you really want to Delete this item.?");
-        if (consent) {
-            $.ajax({
-                url: "http://localhost:8080/app/api/v1/items?code=" + id,
-                method: "DELETE",
+        focusText($("#txtItemID"));
+    }
+});
 
-                success: function (resp, jqxhr) {
-                    if (jqxhr.status == 201) {
-                        // alert(jqxhr.responseText);
-                        alert("Delete Item successfully");
-                    }
-                    loadItemCodes();
-                }
-            });
+$("#txtItemName").on('keydown', function (event) {
+    if (event.key === "Enter" && check(regExItemName, $("#txtItemName"))) {
+        focusText($("#txtItemQty"));
+    }
+});
+
+$("#txtItemQty").on('keydown', function (event) {
+    if (event.key === "Enter" && check(regExItemPrice, $("#txtItemQty"))) {
+        focusText($("#txtItemPrice"));
+    }
+});
+
+$("#txtItemPrice").on('keydown', function (event) {
+    if (event.key === "Enter" && check(regExItemQtyOnHand, $("#txtItemPrice"))) {
+        if (event.which === 13) {
+            $('#btnAddItem').focus();
         }
     }
-}
+});
 
-function updateItem(){
-    let id=$("#txtItemCode").val();
-    if (searchItem(id) == undefined) {
-        alert("No such Customer..please check the ID");
+function setButtonState(value) {
+    if (value > 0) {
+        $("#btnAddItem").attr('disabled', true);
+        $("#btnUpdateItem").attr('disabled', true);
+        $("#btnDeleteItem").attr('disabled', true);
     } else {
-        let consent = confirm("Do you really want to update this item.?");
-        if (consent) {
-            let name = $("#txtItemName").val();
-            let price = $("#txtItemPrice").val();
-            let qty = $("#txtItemQty").val();
-
-            let newItem = {
-                code: id,
-                description: name,
-                unitPrice: price,
-                qtyOnHand: qty
-            };
-
-            const jsonObject = JSON.stringify(newItem); 
-            $.ajax({
-                url: "http://localhost:8080/app/api/v1/items",
-                method: "PUT",
-                data: jsonObject,
-
-                success: function (resp, jqxhr) {
-                    if (jqxhr.status == 201) {
-                        // alert(jqxhr.responseText);
-                        alert("Update Item successfully");
-                    }
-                    loadItemCodes();
-                }
-            });
-        }
+        $("#btnAddItem").attr('disabled', false);
+        $("#btnUpdateItem").attr('disabled', false);
+        $("#btnDeleteItem").attr('disabled', false);
     }
 }
