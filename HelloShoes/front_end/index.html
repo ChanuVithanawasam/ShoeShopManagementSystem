@@ -3,32 +3,37 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Bootstrap Customer Manager Form</title>
+  <title>Shoe Shop</title>
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css">
   <link href="assets/bootstrap/css/b" rel="stylesheet">
   <link href="assets/bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/fontawesome-free-6.4.2-web/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
-  <link rel="stylesheet" href="./dist/app.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="./dist/app.css">
 </head>
 
-<body style="background-color: #007acc">
+<body style="background-color: #051c00">
 
 <!--header-->
 <main class="container-fluid " id="navigatoon">
 <header>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid" style="background-color:  #007acc">
-      <a class="navbar-brand" href="#" style="color: white">FOOTFLEX SHOES </a>
+    <div class="container-fluid" style="background-color:  #051c00">
+      <span class="hero-section__brand neon-txt" style="font-size: 25px;">
+                HELLO SHOE
+            </span>
+<!--      <a class="navbar-brand" href="#" style="color: #ffffff">HELLO SHOES </a>-->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="background-color:white">
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="background-color:orangered">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item" id="lnkHome"><a class="nav-link active" aria-current="page" href="#" style="color: white">Home</a></li>
+          <li class="nav-item" id="lnkHome"><a class="nav-link active" aria-current="page" href="#" style="color: #e3430f">Home</a></li>
           <li class="nav-item">
             <a class="nav-link" id="lnkCustomer" href="#" style="color: white" >Customer</a>
           </li>
@@ -60,24 +65,24 @@
 </main>
 
 <!--  singup & login page ///////////////////////////////////////////////////////////////////////////////////////////// -->
-<main id="loginPage" style="background-color: #F7B441;color: #ffffff;">
+<main id="loginPage" style="background-color: #051c00;color: #ffffff;">
   <div class="container">
-    <div class="row justify-content-center mt-5" style="background-color: #F7B441; color: #ffffff;">
+    <div class="row justify-content-center mt-5" style="background-color: #051c00; color: #ffffff;">
       <div class="col-md-6">
-        <div class="card"  style="background-color: #F7B441;color: #ffffff; border-color: #fdfdfd;">
+        <div class="card"  style="background-color: #051c00;color: #ffffff; border-color: #fdfdfd;">
           <div class="card-header d-flex justify-content-between align-items-center" style="color: #ffffff;">
             Login
-            <button type="button" class="btn-close" aria-label="Close" id="loginClose" style="background-color: #ffffff;"></button>
+            <button onclick="window.location.href='index_Home.html'" type="button" class="btn-close" aria-label="Close" id="loginClose" style="background-color: #ffffff;"></button>
           </div>
           <div class="card-body">
             <form>
               <div class="mb-3">
                 <label for="emailLogin" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="emailLogin" aria-describedby="emailHelp" style="background-color: #283640;color: white">
+                <input type="email" class="form-control" id="emailLogin" aria-describedby="emailHelp" style="background-color: #051c00;color: white">
               </div>
               <div class="mb-3">
                 <label for="passwordLogin" class="form-label">Password</label>
-                <input type="password" class="form-control" id="passwordLogin" style="background-color: #F7B441;color: white">
+                <input type="password" class="form-control" id="passwordLogin" style="background-color: #051c00;color: white">
               </div>
               <button type="submit" class="btn btn-primary" id="loginSubmit">Login</button>
             </form>
@@ -88,41 +93,41 @@
   </div>
 </main>
 
-<main class="container-fluid" id="singUpPage" style="background-color: #F7B441;">
+<main class="container-fluid" id="singUpPage" style="background-color: #051c00;">
   <div class="container">
-    <div class="row justify-content-center mt-5" style="background-color: #F7B441;">
+    <div class="row justify-content-center mt-5" style="background-color: #051c00;">
       <div class="col-md-6" >
         <div class="card" >
-          <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #F7B441; color: white">
+          <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #051c00; color: white">
             Signup
-            <button type="button" class="btn-close" aria-label="Close" id="singUpClose" style="background-color: #ffffff;"></button>
+            <button onclick="window.location.href='index_Home.html'" type="button" class="btn-close" aria-label="Close" id="singUpClose" style="background-color: #ffffff;"></button>
           </div>
-          <div class="card-body" style="background-color: #F7B441; color: white">
+          <div class="card-body" style="background-color: #051c00; color: white">
             <form class="needs-validation" novalidate>
               <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" style="background-color: #F7B441;color: white" required>
+                <input type="text" class="form-control" id="name" style="background-color: #051c00;color: white" required>
                 <div class="invalid-feedback">
                   Please enter your name.
                 </div>
               </div>
               <div class="mb-3">
                 <label for="emailsingup" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="emailsingup" aria-describedby="emailHelp" style="background-color: #283640;color: white" required>
+                <input type="email" class="form-control" id="emailsingup" aria-describedby="emailHelp" style="background-color: #051c00;color: white" required>
                 <div class="invalid-feedback">
                   Please enter a valid email address.
                 </div>
               </div>
               <div class="mb-3">
                 <label for="passwordsingup" class="form-label">Password</label>
-                <input type="password" class="form-control" id="passwordsingup" style="background-color: #283640;color: white" required>
+                <input type="password" class="form-control" id="passwordsingup" style="background-color: #051c00;color: white" required>
                 <div class="invalid-feedback">
                   Please enter a password.
                 </div>
               </div>
               <div class="mb-3">
                 <label for="role" class="form-label">Role</label>
-                <select class="form-select" id="role" style="background-color: #283640;color: white" required>
+                <select class="form-select" id="role" style="background-color: #051c00;color: white" required>
                   <option value="normal">Normal User</option>
                   <option value="admin">Admin</option>
                 </select>
@@ -130,7 +135,7 @@
                   Please select a role.
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary" id="SignupSubmit" style="background-color: #4cafac; border: none; color: white; padding: 10px 27px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 12px;">Signup</button>
+              <button type="submit" class="btn btn-primary" id="SignupSubmit" style="background-color: #30bd06; border: none; color: white; padding: 10px 27px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 12px;">Signup</button>
             </form>
           </div>
         </div>
@@ -193,31 +198,31 @@
   <main class="container-fluid" id="customerContent">
     <div class="container-fluid mt-2">
       <div class="row border bg-r">
-        <div class="p-3 text-primary-emphasis border border-primary-subtle rounded-3" style="background-color: #2C3A47">
+        <div class="p-3 text-primary-emphasis border border-primary-subtle rounded-3" style="background-color: #051c00">
           <!--Form--> <!--Slider-->
           <div class="row" >
             <div class="col-md-12 col-lg-6 col-xl-6 grid-margin stretch-card"  style="color: white">
-              <div class="card" style="background-color: #2C3A47; width: 100%; height: 100% ;color: wheat;">
+              <div class="card" style="background-color: #051c00; width: 100%; height: 100% ;color: wheat;">
                 <div >
 
                   <div class="mb-3">
                        <label for="cId" class="col-sm-3 form-label">code :</label>
-                        <input disabled type="text" class="form-control" id="cId" placeholder="" style="background-color: #283640;color: white">
+                        <input disabled type="text" class="form-control" id="cId" placeholder="" style="background-color: #051c00;color: white">
                   </div>
 
                   <div class="mb-3">
                     <label for="cName" class="col-sm-3 col-form-label">Name :</label>
-                      <input type="text" class="form-control" id="cName" placeholder="" style="background-color: #283640;color: white">
+                      <input type="text" class="form-control" id="cName" placeholder="" style="background-color: #051c00;color: white">
                   </div>
 
                   <div class="mb-3">
                     <label for="cEmail" class="col-sm-3 col-form-label">Email :</label>
-                      <input type="email" class="form-control" id="cEmail" placeholder="" style="background-color: #283640;color: white">
+                      <input type="email" class="form-control" id="cEmail" placeholder="" style="background-color: #051c00;color: white">
                   </div>
 
                   <div class="mb-3">
                     <label for="cGender" class="col-sm-3 col-form-label">Gender :</label>
-                    <select class="form-control" id="cGender" style="background-color: #283640;color: white">
+                    <select class="form-control" id="cGender" style="background-color: #051c00;color: white">
                       <option value="" selected>Choose...</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
@@ -226,7 +231,7 @@
 
                   <div class="mb-3">
                     <label for="cDob" class="col-sm-3 col-form-label">Date of Birth :</label>
-                      <input type="date" class="form-control" id="cDob" name="dob" style="background-color: #283640;color: white">
+                      <input type="date" class="form-control" id="cDob" name="dob" style="background-color: #051c00;color: white">
                   </div>
 
                 </div>
@@ -234,45 +239,45 @@
             </div>
 
             <div class="col-md-12 col-lg-6 col-xl-6 grid-margin stretch-card">
-              <div class="card" style="background-color: #2C3A47; width: 100%; height: 100% ;color: wheat;">
+              <div class="card" style="background-color: #051c00; width: 100%; height: 100% ;color: wheat;">
                 <div>
                   <form class="col-md-12 col-lg-6 col-xl-6 grid-margin stretch-card" style="width: 100%; ">
 
                     <div class="mb-3">
                       <label for="cAddressLine" class="form-label">Address :</label>
-                        <input type="text" class="form-control" id="cAddressLine" placeholder="" style="background-color: #283640;color: white">
+                        <input type="text" class="form-control" id="cAddressLine" placeholder="" style="background-color: #051c00;color: white">
                     </div>
 
                     <div class="mb-3">
                       <label for="cStateCity" class="col-sm-3 col-form-label">City & State :</label>
-                        <input type="text" class="form-control" id="cStateCity" placeholder="" style="background-color: #283640;color: white">
+                        <input type="text" class="form-control" id="cStateCity" placeholder="" style="background-color: #051c00;color: white">
                     </div>
 
                     <div class="mb-3">
                       <label for="cLoyaltyDate" class="col-sm-3 col-form-label">Loyalty Date :</label>
-                        <input type="date" class="form-control" id="cLoyaltyDate" name="dob" style="background-color: #283640;color: white">
+                        <input type="date" class="form-control" id="cLoyaltyDate" name="dob" style="background-color: #051c00;color: white">
                     </div>
 
                     <div class="mb-3">
                       <label for="cContact" class="col-sm-3 col-form-label">Contact :</label>
-                        <input type="text" class="form-control" id="cContact" placeholder="" style="background-color: #283640;color: white">
+                        <input type="text" class="form-control" id="cContact" placeholder="" style="background-color: #051c00;color: white">
                     </div>
 
                     <!--hidden text fields-->
 
                     <div style="display: none" class="form-group row">
                       <label for="cLevel" class="col-sm-3 col-form-label">Loyalty Level :</label>
-                        <input type="text" class="form-control" id="cLevel" placeholder="" style="background-color: #283640;color: white">
+                        <input type="text" class="form-control" id="cLevel" placeholder="" style="background-color: #051c00;color: white">
                     </div>
 
                     <div  style="display: none" class="form-group row">
                       <label for="cLoyaltyPoint" class="col-sm-3 col-form-label">Loyalty Points :</label>
-                        <input  type="text" class="form-control" id="cLoyaltyPoint" placeholder="" style="background-color: #283640;color: white">
+                        <input  type="text" class="form-control" id="cLoyaltyPoint" placeholder="" style="background-color: #051c00;color: white">
                     </div>
 
                     <div  style="display: none" class="form-group row">
                       <label for="cRecentDate" class="col-sm-3 col-form-label">Recent Date :</label>
-                        <input  type="text" class="form-control" id="cRecentDate" placeholder="" style="background-color: #283640;color: white">
+                        <input  type="text" class="form-control" id="cRecentDate" placeholder="" style="background-color: #051c00;color: white">
                     </div>
                     <!--end of hidden text fields-->
                   </form>
@@ -296,7 +301,7 @@
     <nav style="width: 250px;" >
       <div class="container-fluid " >
         <form class="d-flex " role="search" >
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="background-color: #555e6a; color: white" id="employeeSearchInput">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="background-color: #051c00; color: white" id="employeeSearchInput">
           <button class="btn btn-outline-success " fdprocessedid="prr3r4" type="submit" id="SearchEmployee">Search</button>
         </form>
       </div>
@@ -333,26 +338,26 @@
 <main class="container-fluid" id="employeeContent">
   <div class="container-fluid mt-2">
     <div class="row border bg-r">
-      <div class="p-3 text-primary-emphasis border border-primary-subtle rounded-3" style="background-color: #2C3A47">
+      <div class="p-3 text-primary-emphasis border border-primary-subtle rounded-3" style="background-color: #051c00">
         <!--Form--> <!--Slider-->
         <div class="row" >
           <div class="col-md-12 col-lg-6 col-xl-6 grid-margin stretch-card"  style="color: white">
-            <div class="card" style="background-color: #2C3A47; width: 100%; height: 100% ;color: wheat;">
+            <div class="card" style="background-color: #051c00; width: 100%; height: 100% ;color: wheat;">
               <div >
 
                 <div class="mb-3">
                   <label for="eId" class="col-sm-3 col-form-label">code :</label>
-                    <input disabled type="text" class="form-control" id="eId" placeholder="" style="background-color: #283640;color: white">
+                    <input disabled type="text" class="form-control" id="eId" placeholder="" style="background-color: #051c00;color: white">
                 </div>
 
                 <div class="mb-3">
                   <label for="eName" class="col-sm-3 col-form-label">Name :</label>
-                    <input type="text" class="form-control" id="eName" placeholder="" style="background-color: #283640;color: white">
+                    <input type="text" class="form-control" id="eName" placeholder="" style="background-color: #051c00;color: white">
                 </div>
 
                 <div class="mb-3">
                   <label for="eGender" class="col-sm-3 col-form-label">Gender :</label>
-                    <select class="form-control" id="eGender" style="background-color: #283640;color: white">
+                    <select class="form-control" id="eGender" style="background-color: #051c00;color: white">
                       <option selected>Choose...</option>
                       <option>Male</option>
                       <option>Female</option>
@@ -361,13 +366,13 @@
 
                 <div class="mb-3">
                   <label for="edOb" class="col-sm-3 col-form-label">Date of Birth:</label>
-                    <input type="date" class="form-control" id="edOb" style="background-color: #283640;color: white">
+                    <input type="date" class="form-control" id="edOb" style="background-color: #051c00;color: white">
                 </div>
 
 
                 <div class="mb-3">
                   <label for="eStatus" class="col-sm-3 col-form-label">Civil Status :</label>
-                    <select class="form-control" id="eStatus" style="background-color: #283640;color: white">
+                    <select class="form-control" id="eStatus" style="background-color: #051c00;color: white">
                       <option selected>Choose...</option>
                       <option>Single</option>
                       <option>Married</option>
@@ -380,7 +385,7 @@
 
                 <div class="mb-3">
                   <label for="eDesignation" class="col-sm-3 col-form-label">Designation :</label>
-                    <select class="form-control" id="eDesignation" style="background-color: #283640;color: white">
+                    <select class="form-control" id="eDesignation" style="background-color: #051c00;color: white">
                       <option selected>Choose...</option>
                       <option>Manager</option>
                       <option>Supervisor</option>
@@ -390,12 +395,12 @@
 
                 <div class="mb-3">
                   <label for="eJoinDate" class="col-sm-3 col-form-label">Date of Join:</label>
-                    <input type="date" class="form-control" id="eJoinDate" name="dob" style="background-color: #283640;color: white">
+                    <input type="date" class="form-control" id="eJoinDate" name="dob" style="background-color: #051c00;color: white">
                 </div>
 
                 <div class="mb-3">
                   <label for="eROle" class="col-sm-3 col-form-label">Access Role :</label>
-                    <select class="form-control" id="eROle" style="background-color: #283640;color: white">
+                    <select class="form-control" id="eROle" style="background-color: #051c00;color: white">
                       <option selected>Choose...</option>
                       <option>Admin</option>
                       <option>User</option>
@@ -407,20 +412,20 @@
           </div>
 
           <div class="col-md-12 col-lg-6 col-xl-6 grid-margin stretch-card">
-            <div class="card" style="background-color: #2C3A47; width: 100%; height: 100% ;color: wheat;">
+            <div class="card" style="background-color: #051c00; width: 100%; height: 100% ;color: wheat;">
               <div>
                 <form class="col-md-12 col-lg-6 col-xl-6 grid-margin stretch-card" style="width: 100%; ">
 
                   <div class="mb-3">
                     <label class="col-sm-3 col-form-label">File upload :</label>
 <!--                      <button class="file-upload-browse btn btn-primary" type="button">Choose File</button>-->
-                     <input class="form-control" id="eImage" type="file" name="img[]" class="file-upload-default" style="background-color: #283640;color: white">
+                     <input class="form-control" id="eImage" type="file" name="img[]" class="file-upload-default" style="background-color: #051c00;color: white">
                   </div>
 
 
                   <div class="mb-3">
                     <label for="eBranch" class="col-sm-3 col-form-label">Branch :</label>
-                      <select class="form-control" id="eBranch" style="background-color: #283640;color: white">
+                      <select class="form-control" id="eBranch" style="background-color: #051c00;color: white">
                         <option selected>Choose...</option>
                         <option>Galle</option>
                         <option>Colombo</option>
@@ -430,33 +435,33 @@
 
                   <div class="mb-3">
                     <label for="eEmail" class="col-sm-3 col-form-label">Email :</label>
-                      <input type="email" class="form-control" id="eEmail" placeholder="" style="background-color: #283640;color: white">
+                      <input type="email" class="form-control" id="eEmail" placeholder="" style="background-color: #051c00;color: white">
                   </div>
 
                   <div class="mb-3">
                     <label for="ePhone" class="col-sm-3 col-form-label">Mobile (phone) :</label>
-                      <input type="text" class="form-control" id="ePhone" placeholder="" style="background-color: #283640;color: white">
+                      <input type="text" class="form-control" id="ePhone" placeholder="" style="background-color: #051c00;color: white">
                   </div>
 
 
                   <div class="mb-3">
                     <label for="eGuardian" class="col-sm-3 col-form-label">Guardian Name :</label>
-                      <input type="text" class="form-control" id="eGuardian" placeholder="" style="background-color: #283640;color: white">
+                      <input type="text" class="form-control" id="eGuardian" placeholder="" style="background-color: #051c00;color: white">
                   </div>
 
                   <div class="mb-3">
                     <label for="eHomeNumber" class="col-sm-3 col-form-label">Guardian (mobile) :</label>
-                    <input type="text" class="form-control" id="eHomeNumber" placeholder="" style="background-color: #283640;color: white">
+                    <input type="text" class="form-control" id="eHomeNumber" placeholder="" style="background-color: #051c00;color: white">
                   </div>
 
                   <div class="mb-3">
                     <label for="eAddress" class="col-sm-3 col-form-label">Address :</label>
-                      <input type="text" class="form-control" id="eAddress" placeholder="" style="background-color: #283640;color: white">
+                      <input type="text" class="form-control" id="eAddress" placeholder="" style="background-color: #051c00;color: white">
                   </div>
 
                   <div class="mb-3">
                     <label for="eState" class="col-sm-3 col-form-label">City & State :</label>
-                    <input type="text" class="form-control" id="eState" placeholder="" style="background-color: #283640;color: white">
+                    <input type="text" class="form-control" id="eState" placeholder="" style="background-color: #051c00;color: white">
                   </div>
                   <!--end of hidden text fields-->
                 </form>
@@ -480,7 +485,7 @@
     <nav style="width: 250px;" >
       <div class="container-fluid " >
         <form class="d-flex " role="search" >
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="background-color: #555e6a; color: white" id="searchInput">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="background-color: #051c00; color: white" id="searchInput">
           <button class="btn btn-outline-success " fdprocessedid="prr3r4" type="submit" id="SearchCustomer">Search</button>
         </form>
       </div>
@@ -522,27 +527,27 @@
 <main class="container-fluid" id="supplierContent">
   <div class="container-fluid mt-2">
     <div class="row border bg-r">
-      <div class="p-3 text-primary-emphasis border border-primary-subtle rounded-3" style="background-color: #2C3A47">
+      <div class="p-3 text-primary-emphasis border border-primary-subtle rounded-3" style="background-color: #051c00">
         <div>
           <div class="row" >
             <div class="col-md-12 col-lg-6 col-xl-6 grid-margin stretch-card"  style="color: white">
-              <div class="card" style="background-color: #2C3A47; width: 100%; height: 100% ;color: wheat;">
+              <div class="card" style="background-color: #051c00; width: 100%; height: 100% ;color: wheat;">
                 <div>
                   <div class="mb-3">
                     <label for="SupCode" class="col-sm-3 col-form-label">Code</label>
-                      <input disabled type="text" class="form-control" id="SupCode" style="background-color: #283640;color: white">
+                      <input disabled type="text" class="form-control" id="SupCode" style="background-color: #051c00;color: white">
                   </div>
                   <div class="mb-3">
                     <label for="txtSupName" class="col-sm-3 col-form-label">Name</label>
-                      <input type="text" class="form-control" id="txtSupName" style="background-color: #283640;color: white">
+                      <input type="text" class="form-control" id="txtSupName" style="background-color: #051c00;color: white">
                   </div>
                   <div class="mb-3">
                     <label for="txtSupEmail" class="col-sm-3 col-form-label">Email</label>
-                      <input type="email" class="form-control" id="txtSupEmail" style="background-color: #283640;color: white">
+                      <input type="email" class="form-control" id="txtSupEmail" style="background-color: #051c00;color: white">
                   </div>
                   <div class="mb-3">
                     <label for="cmbSupCategory" class="col-sm-3 col-form-label">Category</label>
-                      <select id="cmbSupCategory" class="form-select" aria-label="Default select example" style="background-color: #283640;color: white">
+                      <select id="cmbSupCategory" class="form-select" aria-label="Default select example" style="background-color: #051c00;color: white">
                         <option value="Local">Local</option>
                         <option value="International">International</option>
                       </select>
@@ -552,24 +557,24 @@
             </div>
 
             <div class="col-md-12 col-lg-6 col-xl-6 grid-margin stretch-card">
-              <div class="card" style="background-color: #2C3A47; width: 100%; height: 100% ;color: wheat;">
+              <div class="card" style="background-color: #051c00; width: 100%; height: 100% ;color: wheat;">
                 <div>
                   <form class="col-md-12 col-lg-6 col-xl-6 grid-margin stretch-card" style="width: 100%; ">
                     <div class="mb-3">
                       <label for="txtSupAddLine01" class="col-sm-3 col-form-label">Address No.</label>
-                        <input type="text" class="form-control" id="txtSupAddLine01" style="background-color: #283640;color: white">
+                        <input type="text" class="form-control" id="txtSupAddLine01" style="background-color: #051c00;color: white">
                     </div>
                     <div class="mb-3">
                       <label for="txtSupAddLine02" class="col-sm-3 col-form-label">Address</label>
-                        <input type="email" class="form-control" id="txtSupAddLine02" style="background-color: #283640;color: white">
+                        <input type="email" class="form-control" id="txtSupAddLine02" style="background-color: #051c00;color: white">
                     </div>
                     <div class="mb-3">
                       <label for="txtSupMobile" class="col-sm-3 col-form-label">Mobile No.</label>
-                        <input type="number" class="form-control" id="txtSupMobile" style="background-color: #283640;color: white">
+                        <input type="number" class="form-control" id="txtSupMobile" style="background-color: #051c00;color: white">
                     </div>
                     <div class="mb-3">
                       <label for="txtSupLandLine" class="col-sm-3 col-form-label">LandLine No.</label>
-                        <input type="number" class="form-control" id="txtSupLandLine" style="background-color: #283640;color: white">
+                        <input type="number" class="form-control" id="txtSupLandLine" style="background-color: #051c00;color: white">
                     </div>
                   </form>
                 </div>
@@ -638,64 +643,64 @@
 <main class="container-fluid" id="itemContent">
   <div class="container-fluid mt-2">
     <div class="row border bg-r">
-      <div class="p-3 text-primary-emphasis border border-primary-subtle rounded-3" style="background-color: #2C3A47">
+      <div class="p-3 text-primary-emphasis border border-primary-subtle rounded-3" style="background-color: #051c00">
         <div>
           <div class="row">
             <div class="col-md-12 col-lg-6 col-xl-6 grid-margin stretch-card" style="color: white">
-              <div class="card" style="background-color: #2C3A47; width: 100%; height: 100%; color: wheat;">
+              <div class="card" style="background-color: #051c00; width: 100%; height: 100%; color: wheat;">
                 <div class="mb-3">
                   <label for="txtItemCode" class="col-sm-3 col-form-label">Code</label>
-                  <input type="text" class="form-control" id="txtItemCode" style="background-color: #283640;color: white">
+                  <input type="text" class="form-control" id="txtItemCode" style="background-color: #051c00;color: white">
                 </div>
                 <div class="mb-3">
                   <label for="txtItemDesc" class="col-sm-3 col-form-label">Description</label>
-                  <input type="text" class="form-control" id="txtItemDesc" style="background-color: #283640;color: white">
+                  <input type="text" class="form-control" id="txtItemDesc" style="background-color: #051c00;color: white">
                 </div>
                 <div class="mb-3">
                   <label for="txtItemCategory" class="col-sm-3 col-form-label">Category</label>
-                  <input type="text" class="form-control" id="txtItemCategory" style="background-color: #283640;color: white">
+                  <input type="text" class="form-control" id="txtItemCategory" style="background-color: #051c00;color: white">
                 </div>
                 <div class="row mb-3 col-12">
                   <label class="col-sm-3 col-form-label">Sizes :</label>
                   <div class="row col-sm-9">
                     <div class="row">
                       <label for="txtItemSize6" class="col-sm-3 col-form-label">Size-6</label>
-                      <input type="number" class="form-control" id="txtItemSize6" style="background-color: #283640;color: white">
+                      <input type="number" class="form-control" id="txtItemSize6" style="background-color: #051c00;color: white">
                     </div>
                     <div class="row mt-2">
                       <label for="txtItemSize7" class="col-sm-3 col-form-label">Size-7</label>
-                      <input type="number" class="form-control" id="txtItemSize7" style="background-color: #283640;color: white" >
+                      <input type="number" class="form-control" id="txtItemSize7" style="background-color: #051c00;color: white" >
                     </div>
                     <div class="row mt-2">
                       <label for="txtItemSize8" class="col-sm-3 col-form-label">Size-8</label>
-                      <input type="number" class="form-control" id="txtItemSize8" style="background-color: #283640;color: white">
+                      <input type="number" class="form-control" id="txtItemSize8" style="background-color: #051c00;color: white">
                     </div>
                     <div class="row mt-2">
                       <label for="txtItemSize9" class="col-sm-3 col-form-label">Size-9</label>
-                      <input type="number" class="form-control" id="txtItemSize9" style="background-color: #283640;color: white">
+                      <input type="number" class="form-control" id="txtItemSize9" style="background-color: #051c00;color: white">
                     </div>
                   </div>
                 </div>
                 <div class="mb-3">
                   <label for="cmbItemSupCode" class="col-sm-3 col-form-label">Supplier Code</label>
-                  <select id="cmbItemSupCode" class="form-select" aria-label="Default select example" style="background-color: #283640;color: white"></select>
+                  <select id="cmbItemSupCode" class="form-select" aria-label="Default select example" style="background-color: #051c00;color: white"></select>
                 </div>
                 <div class="mb-3">
                   <label for="txtItemSupName" class="col-sm-3 col-form-label">Supplier Name</label>
-                  <input type="text" class="form-control" id="txtItemSupName" style="background-color: #283640;color: white">
+                  <input type="text" class="form-control" id="txtItemSupName" style="background-color: #051c00;color: white">
                 </div>
               </div>
             </div>
 
             <div class="col-md-12 col-lg-6 col-xl-6 grid-margin stretch-card">
-              <div class="card" style="background-color: #2C3A47; width: 100%; height: 100%; color: wheat;">
+              <div class="card" style="background-color: #051c00; width: 100%; height: 100%; color: wheat;">
                 <div class="col-md-12 col-lg-6 col-xl-6 grid-margin stretch-card" style="width: 100%;">
 
                   <div class="mb-3">
                     <label for="txtItemProfilePic" class="col-sm-3 col-form-label">Profile Pic</label>
                     <div class="row">
                       <div class="col-sm-9"> <!-- Adjusted width for input field -->
-                        <input class="form-control" type="file" name="img[]" class="file-upload-default" id="txtItemProfilePic" style="background-color: #283640;color: white">
+                        <input class="form-control" type="file" name="img[]" class="file-upload-default" id="txtItemProfilePic" style="background-color: #051c00;color: white">
                       </div>
                       <div class="col-sm-3"> <!-- Adjusted width for image -->
                           <img src="assets/bac/Screenshot%202024-05-07%20211154.png" alt="Item Image" style="max-width: 75px; max-height: 75px;" id="showItemImage" s>
@@ -705,23 +710,23 @@
 
                   <div class="mb-3">
                     <label for="txtItemUnitPriceSale" class="col-sm-3 col-form-label">Unit Price(Sale)</label>
-                    <input type="number" class="form-control" id="txtItemUnitPriceSale" style="background-color: #283640;color: white">
+                    <input type="number" class="form-control" id="txtItemUnitPriceSale" style="background-color: #051c00;color: white">
                   </div>
                   <div class="mb-3">
                     <label for="txtItemUnitPriceBuy" class="col-sm-3 col-form-label">Unit Price(Buy)</label>
-                    <input type="number" class="form-control" id="txtItemUnitPriceBuy" style="background-color: #283640;color: white">
+                    <input type="number" class="form-control" id="txtItemUnitPriceBuy" style="background-color: #051c00;color: white">
                   </div>
                   <div class="mb-3">
                     <label for="txtItemProfit" class="col-sm-3 col-form-label">Profit</label>
-                    <input type="number" class="form-control" id="txtItemProfit" style="background-color: #283640;color: white">
+                    <input type="number" class="form-control" id="txtItemProfit" style="background-color: #051c00;color: white">
                   </div>
                   <div class="mb-3">
                     <label for="txtItemProfitMargin" class="col-sm-3 col-form-label">Profit Margin</label>
-                    <input type="number" class="form-control" id="txtItemProfitMargin" style="background-color: #283640;color: white">
+                    <input type="number" class="form-control" id="txtItemProfitMargin" style="background-color: #051c00;color: white">
                   </div>
                   <div class="mb-3">
                     <label for="txtItemStatus" class="col-sm-3 col-form-label">Status</label>
-                    <input type="text" class="form-control" id="txtItemStatus" style="background-color: #283640;color: white">
+                    <input type="text" class="form-control" id="txtItemStatus" style="background-color: #051c00;color: white">
                   </div>
                 </div>
               </div>
@@ -798,69 +803,69 @@
     <div class="container-fluid mt-2" >
       <div class="row border" >
         <div class="col-12 col-md-4  mt-3 p-3 text-primary-emphasis  border border-primary-subtle rounded-3"
-          style="border-radius: 10px; border: 2px solid #0BB256; background-color: #2C3A47">
+          style="border-radius: 10px; border: 2px solid #0BB256; background-color: #051c00">
           <h4 style="text-align: center; color: #0BB256; ">Invoice Details</h4>
           <div class="row g-2" style="color: white">
             <div class="col-6">
               <label for="OrderId" class="form-label">Order Id :</label>
-              <input type="text" id="OrderId" class="form-control" placeholder="Order Id" aria-label="Last name" style="background-color: #555e6a; color: white">
+              <input type="text" id="OrderId" class="form-control" placeholder="Order Id" aria-label="Last name" style="background-color: #051c00; color: white">
               <label for="OrderId" id="OrderNotTypeId" class="form-label" style="display: none;color: #0BB256"> :</label>
             </div>
             <div class="col-6">
               <label for="date" class="form-label">Order Date :</label>
-              <input type="date" id="date" class="form-control" placeholder="Order Date" aria-label="Order Date" style="background-color: #555e6a; color: white">
+              <input type="date" id="date" class="form-control" placeholder="Order Date" aria-label="Order Date" style="background-color: #051c00; color: white">
             </div>
             <div class="col-6">
               <label for="CustominputState" class="form-label">Customer :</label>
-              <select id="CustominputState" class="form-select" style="background-color: #555e6a; color: white"></select>
+              <select id="CustominputState" class="form-select" style="background-color: #051c00; color: white"></select>
             </div>
             <div class="col-6">
               <label for="custIdSetOrder" class="form-label" >Customer Id :</label>
-              <input type="text" id="custIdSetOrder" class="form-control" placeholder="Customer Id" aria-label="Last name" style="background-color: #555e6a; color: white">
+              <input type="text" id="custIdSetOrder" class="form-control" placeholder="Customer Id" aria-label="Last name" style="background-color: #051c00; color: white">
             </div>
             <div class="col-6">
               <label for="custNameSetOrder" class="form-label" >Customer Name :</label>
-              <input type="text" id="custNameSetOrder" class="form-control" placeholder="Customer Name" aria-label="Last name" style="background-color: #555e6a; color: white">
+              <input type="text" id="custNameSetOrder" class="form-control" placeholder="Customer Name" aria-label="Last name" style="background-color: #051c00; color: white">
             </div>
             <div class="col-6">
               <label for="custSalarySetOrder" class="form-label" >Customer Salary :</label>
-              <input type="text" id="custSalarySetOrder" class="form-control" placeholder="Salary" aria-label="Last name" style="background-color: #555e6a; color: white">
+              <input type="text" id="custSalarySetOrder" class="form-control" placeholder="Salary" aria-label="Last name" style="background-color: #051c00; color: white">
             </div>
             <div class="col-6">
               <label for="custAddressSetOrder" class="form-label">Customer Address :</label>
-              <input type="text" id="custAddressSetOrder" class="form-control" placeholder="Address" aria-label="Last name" style="background-color: #555e6a; color: white">
+              <input type="text" id="custAddressSetOrder" class="form-control" placeholder="Address" aria-label="Last name" style="background-color: #051c00; color: white">
             </div>
           </div>
         </div>
         <div
           class="col-12 col-md-4  mt-3 p-3 text-primary-emphasis  border border-primary-subtle rounded-3"
-          style="border-radius: 10px; border: 2px solid #0BB256; background-color: #2C3A47">
+          style="border-radius: 10px; border: 2px solid #0BB256; background-color: #051c00">
           <!--item section-->
           <h4 style="text-align: center; color: #0BB256">Item Select</h4>
           <div class="row g-2" style="color: white">
             <div class="col-6">
               <label for="IteminputState" class="form-label">Item :</label>
-              <select id="IteminputState" class="form-select" style="background-color: #555e6a; color: white"></select>
+              <select id="IteminputState" class="form-select" style="background-color: #051c00; color: white"></select>
             </div>
             <div class="col-6">
               <label for="ItemIdSetOrder" class="form-label">Item Code :</label>
-              <input type="text" id="ItemIdSetOrder" class="form-control" placeholder="Item Code" aria-label="Last name" style="background-color: #555e6a; color: white">
+              <input type="text" id="ItemIdSetOrder" class="form-control" placeholder="Item Code" aria-label="Last name" style="background-color: #051c00; color: white">
             </div>
             <div class="col-4">
               <label for="ItemNameSetOrder" class="form-label">Item Name :</label>
-              <input type="text" id="ItemNameSetOrder" class="form-control" placeholder="Item Name" aria-label="Last name" style="background-color: #555e6a; color: white">
+              <input type="text" id="ItemNameSetOrder" class="form-control" placeholder="Item Name" aria-label="Last name" style="background-color: #051c00; color: white">
             </div>
             <div class="col-4">
               <label for="ItemPriceSetOrder" class="form-label">Price :</label>
-              <input type="text" id="ItemPriceSetOrder" class="form-control" placeholder="Price" aria-label="Last name" style="background-color: #555e6a; color: white">
+              <input type="text" id="ItemPriceSetOrder" class="form-control" placeholder="Price" aria-label="Last name" style="background-color: #051c00; color: white">
             </div>
             <div class="col-4">
               <label for="ItemQTYSetOrder" class="form-label">QtyOnHand :</label>
-              <input type="text" id="ItemQTYSetOrder" class="form-control" placeholder="QtyOnHand" aria-label="Last name" style="background-color: #555e6a; color: white">
+              <input type="text" id="ItemQTYSetOrder" class="form-control" placeholder="QtyOnHand" aria-label="Last name" style="background-color: #051c00; color: white">
             </div>
             <div class="col-12">
               <label class="form-label">OrderQty :</label>
-              <input type="text" id="ChoiceQTYOrder" class="form-control" placeholder="OrderQty" aria-label="Last name" style="background-color: #555e6a; color: white">
+              <input type="text" id="ChoiceQTYOrder" class="form-control" placeholder="OrderQty" aria-label="Last name" style="background-color: #051c00; color: white">
               <div style="display: flex">
                 <label id="qtymassage" class="form-label" style="font-size: 12px; color: red; display: none">Please enter amount lower than :</label>
                 <label id="h1hello" style="position:relative;font-size: 12px; color: red; left:1%; display: none"> </label>
@@ -876,13 +881,13 @@
         </div>
         <div
           class="col-12 col-md-4  mt-3 p-3 text-primary-emphasis  border border-primary-subtle rounded-3"
-          style="border-radius: 10px; border: 2px solid #0BB256; background-color: #2C3A47">
+          style="border-radius: 10px; border: 2px solid #0BB256; background-color: #051c00">
           <h2 style="color: blue">Total : RS <span id="lableTotPrice">0</span>/=</h2>
           <h2 style=" color: red">SubTotal : RS <span id="lableSubTotal">0</span>/=</h2>
           <div class="row g-2" style="color: white">
             <div class="col-6">
               <label for="inputCash" class="form-label">Cash :</label>
-              <input type="text" id="inputCash" class="form-control" placeholder="Cash" aria-label="First name" style="background-color: #555e6a; color: white">
+              <input type="text" id="inputCash" class="form-control" placeholder="Cash" aria-label="First name" style="background-color: #051c00; color: white">
               <div style="display: flex">
                 <label id="cashLOwMasse" class="form-label" style="font-size: 12px; color: red; display: none">Please enter amount greater than :</label>
                 <label id="cashShow" style="position:relative;font-size: 12px; color: red; left:1%; display: none"> </label>
@@ -890,11 +895,11 @@
             </div>
             <div class="col-6">
               <label for="discount" class="form-label">Discount :</label>
-              <input type="number" id="discount" class="form-control" placeholder="Discount" aria-label="Last name" style="background-color: #555e6a; color: white">
+              <input type="number" id="discount" class="form-control" placeholder="Discount" aria-label="Last name" style="background-color: #051c00; color: white">
             </div>
             <div class="col-12">
               <label for="BalanceInput" class="form-label">Balance :</label>
-              <input type="text" id="BalanceInput" class="form-control" placeholder="Balance" aria-label="Last name" style="background-color: #555e6a; color: white">
+              <input type="text" id="BalanceInput" class="form-control" placeholder="Balance" aria-label="Last name" style="background-color: #051c00; color: white">
             </div>
             <div class="d-flex justify-content-center">
               <button id="purchase" type="button" class="btn btn-success" style="width: 30%;">Purchase</button>
